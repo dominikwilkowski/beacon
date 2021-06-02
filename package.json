@@ -1,0 +1,28 @@
+{
+	"name": "beacon",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node src/index.js",
+		"test:format": "prettier --list-different \"**/*.{js,ts,md,mdx,json,html}\"",
+		"test": "yarn test:format",
+		"format": "prettier --write \"**/*.{js,ts,md,mdx,json,html}\"",
+		"deploy:app": "rsync -avzhe ssh --progress ./* deploy@dominik-wilkowski.com:/var/www/html/dominikwilkowski/beacon/",
+		"deploy:restart": "ssh deploy@dominik-wilkowski.com forever restart /www/dominikwilkowski/beacon/src/index.js",
+		"deploy": "yarn deploy:restart && yarn deploy:app",
+		"nuke": "rm -rf build && rm -rf node_modules && rm yarn.lock"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@slack/bolt": "^3.3.0",
+		"body-parser": "^1.19.0",
+		"cfonts": "^2.9.2",
+		"dotenv": "^10.0.0"
+	},
+	"devDependencies": {
+		"prettier": "^2.3.0"
+	}
+}
