@@ -8,8 +8,15 @@ const home = require('./home');
 require('dotenv').config({ path: path.normalize(`${__dirname}/../.env`) });
 const TOKEN = process.env.TOKEN;
 const SLACK_SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET;
-const DEFAULT_USER = JSON.parse(process.env.DEFAULT_USER);
+const DEFAULT_USER = JSON.parse(process.env.DEFAULT_USER || '{}');
 const PORT = process.env.PORT || 3000;
+
+if (!TOKEN || !SLACK_SIGNING_SECRET) {
+	throw new Error(
+		'You need to provide the TOKEN and SLACK_SIGNING_SECRET in your environment'
+	);
+	process.exit(1);
+}
 
 const app = new App({
 	token: TOKEN,
@@ -76,12 +83,12 @@ app.action('submit_form', async ({ body, ack, client }) => {
 		users.map((user) =>
 			client.chat.postMessage({
 				text:
-					`${sender.name} (${sender.username}) has just used *The Beacon* :rotating_light: to alert you of their troubles.\n\n` +
+					`${sender.name} (@${sender.username}) has just used *The Beacon* :rotating_light: to alert you of their troubles.\n\n` +
 					`Please follow up with:\n` +
 					`- Their line manager\n` +
 					`- Their Squad Leader\n` +
 					`- Their project/client\n\n` +
-					`_(Please don't reach out to them right now and give them space for now)_\n\n` +
+					`_(Also please don't reach out to them right now. Give them space for now and maybe check in tomorrow.)_\n\n` +
 					(text ? `They added the below message:\n\n>>> ${text}` : ''),
 				mrkdwn: true,
 				channel: user,
