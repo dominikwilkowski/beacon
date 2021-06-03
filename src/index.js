@@ -70,7 +70,7 @@ app.action('submit_form', async ({ body, ack, client }) => {
 		DEFAULT_USER.map(({ name, id }) =>
 			client.chat.postMessage({
 				text:
-					`Hello ${name}, ${sender.name} (${sender.username}) has just used *The Beacon* :rotating_light: to alert you of their troubles.` +
+					`Hello ${name}, ${sender.name} (@${sender.username}) has just used *The Beacon* :rotating_light: to alert you of their troubles.` +
 					`\n\n` +
 					(text ? `They added the below message:\n\n>>> ${text}` : ''),
 				mrkdwn: true,
