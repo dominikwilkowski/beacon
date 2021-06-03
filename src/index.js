@@ -23,6 +23,7 @@ const app = new App({
 	signingSecret: SLACK_SIGNING_SECRET,
 });
 
+home[0].text.text += ` v${pkg.version}`;
 // clone home and create a home view for when the message was sent successfully
 const homeSuccess = JSON.parse(JSON.stringify(home));
 homeSuccess[7].text.text = 'Signal sent. :feel-better:';
