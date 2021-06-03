@@ -18,7 +18,7 @@ const app = new App({
 
 // clone home and create a home view for when the message was sent successfully
 const homeSuccess = JSON.parse(JSON.stringify(home));
-homeSuccess[5].text.text = 'Signal sent. :feel-better:';
+homeSuccess[7].text.text = 'Signal sent. :feel-better:';
 
 // Set the home page of the bot
 app.event('app_home_opened', async ({ event, client }) => {
@@ -79,8 +79,9 @@ app.action('submit_form', async ({ body, ack, client }) => {
 					`${sender.name} (${sender.username}) has just used *The Beacon* :rotating_light: to alert you of their troubles.\n\n` +
 					`Please follow up with:\n` +
 					`- Their line manager\n` +
-					`- Their Squad Leader (unless that's you...)\n` +
+					`- Their Squad Leader\n` +
 					`- Their project/client\n\n` +
+					`_(Please don't reach out to them right now and give them space for now)_\n\n` +
 					(text ? `They added the below message:\n\n>>> ${text}` : ''),
 				mrkdwn: true,
 				channel: user,

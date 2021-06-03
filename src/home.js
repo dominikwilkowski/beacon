@@ -42,6 +42,13 @@ module.exports = [
 		},
 	},
 	{
+		type: 'section',
+		text: {
+			type: 'mrkdwn',
+			text: '_(Tag everyone who can help you communicate your absence like your Squad Leader)_',
+		},
+	},
+	{
 		type: 'input',
 		element: {
 			type: 'plain_text_input',
@@ -52,6 +59,13 @@ module.exports = [
 			type: 'plain_text',
 			text: 'Provide context (optional)',
 			emoji: true,
+		},
+	},
+	{
+		type: 'section',
+		text: {
+			type: 'mrkdwn',
+			text: '_(Maybe include when you aim to be back or what the context is etc)_',
 		},
 	},
 	{
