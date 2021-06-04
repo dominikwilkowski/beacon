@@ -97,7 +97,7 @@ app.action('submit_form', async ({ body, ack, client }) => {
 			if (user.email === 'charles@thinkmill.com.au') {
 				try {
 					const result = await client.users.list();
-					user = result?.members.find(member => member.email === 'dominik@thinkmill.com.au');
+					resolvedUser = result?.members.find(member => member.email === 'dominik@thinkmill.com.au');
 				} catch (e) {
 					console.error('We couldn\'t find Dom');
 				}
