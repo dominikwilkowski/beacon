@@ -92,8 +92,17 @@ app.action('submit_form', async ({ body, ack, client }) => {
 	);
 
 	await Promise.all(
-		users.map((user) =>
-			client.chat.postMessage({
+		users.map(async (user) => {
+			let resolvedUser = user;
+			if (user.email === 'charles@thinkmill.com.au') {
+				try {
+					const result = await client.users.list();
+					user = result?.members.find(member => member.email === 'dominik@thinkmill.com.au');
+				} catch (e) {
+					console.error('We couldn\'t find Dom');
+				}
+			}
+			return client.chat.postMessage({
 				text:
 					`${sender.name} (@${sender.username}) has just used *The Beacon* :rotating_light: to alert you of their troubles.\n\n` +
 					`Please follow up with:\n` +
@@ -105,9 +114,9 @@ app.action('submit_form', async ({ body, ack, client }) => {
 					(duration ? `Duration: ${duration}\n\n` : '') +
 					(text ? `They added the below message:\n\n>>> ${text}` : ''),
 				mrkdwn: true,
-				channel: user,
+				channel: resolvedUser,
 			})
-		)
+		})
 	);
 
 	await client.views.update({
