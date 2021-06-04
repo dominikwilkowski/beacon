@@ -20,7 +20,8 @@ module.exports = [
 				`*What will happen when you click the _Send this out!_ button?*\n` +
 				`*Beacon* will send a message to all the people you have tagged so they can be there for you and help you communicate.\n` +
 				`_(Tip: select yourself in the list to see what is being sent out as a message)_\n` +
-				`If you can, provide an optional message below to give context about your well-being.\n\n\n` +
+				`If you can, provide optional information below to give context about your well-being.\n\n\n` +
+				`Tip: The mental health hotline is anonymous and free at: 02 8205 0566\n\n` +
 				`We hope you feel better soon :chd:`,
 		},
 	},
@@ -66,6 +67,96 @@ module.exports = [
 		text: {
 			type: 'mrkdwn',
 			text: '_(Maybe include when you aim to be back or what the context is etc)_',
+		},
+	},
+	{
+		type: 'section',
+		text: {
+			type: 'mrkdwn',
+			text: 'How do you feel: _(Optional)_',
+		},
+		accessory: {
+			type: 'radio_buttons',
+			options: [
+				{
+					text: {
+						type: 'plain_text',
+						text: ':nauseated_face:',
+						emoji: true,
+					},
+					value: 'nauseated-0',
+				},
+				{
+					text: {
+						type: 'plain_text',
+						text: ':face_with_thermometer:',
+						emoji: true,
+					},
+					value: 'thermometer',
+				},
+				{
+					text: {
+						type: 'plain_text',
+						text: ':cry:',
+						emoji: true,
+					},
+					value: 'cry',
+				},
+				{
+					text: {
+						type: 'plain_text',
+						text: ':sleeping:',
+						emoji: true,
+					},
+					value: 'sleeping',
+				},
+			],
+			action_id: 'feeling',
+		},
+	},
+	{
+		type: 'section',
+		text: {
+			type: 'mrkdwn',
+			text: 'Ballpark duration: _(Optional)_',
+		},
+		accessory: {
+			type: 'radio_buttons',
+			options: [
+				{
+					text: {
+						type: 'plain_text',
+						text: '1 Day',
+						emoji: true,
+					},
+					value: '1day',
+				},
+				{
+					text: {
+						type: 'plain_text',
+						text: '< 1 Week',
+						emoji: true,
+					},
+					value: '<1week',
+				},
+				{
+					text: {
+						type: 'plain_text',
+						text: '> 1 Week',
+						emoji: true,
+					},
+					value: '>1week',
+				},
+				{
+					text: {
+						type: 'plain_text',
+						text: 'I don’t know',
+						emoji: true,
+					},
+					value: 'IDK',
+				},
+			],
+			action_id: 'duration',
 		},
 	},
 	{

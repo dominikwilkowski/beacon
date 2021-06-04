@@ -26,7 +26,7 @@ const app = new App({
 home[0].text.text += ` v${pkg.version}`;
 // clone home and create a home view for when the message was sent successfully
 const homeSuccess = JSON.parse(JSON.stringify(home));
-homeSuccess[7].text.text = 'Signal sent. :feel-better:';
+homeSuccess[9].text.text = 'Signal sent. :feel-better:';
 
 // Set the home page of the bot
 app.event('app_home_opened', async ({ event, client }) => {
@@ -50,6 +50,8 @@ app.action('submit_form', async ({ body, ack, client }) => {
 	const values = body.view.state.values;
 	let users;
 	let text;
+	let feeling;
+	let duration;
 
 	Object.keys(values).forEach((key) => {
 		if (values[key].users) {
@@ -57,6 +59,12 @@ app.action('submit_form', async ({ body, ack, client }) => {
 		}
 		if (values[key].text) {
 			text = values[key].text.value;
+		}
+		if (values[key].feeling && values[key].feeling.selected_option) {
+			feeling = values[key].feeling.selected_option.text.text;
+		}
+		if (values[key].duration && values[key].duration.selected_option) {
+			duration = values[key].duration.selected_option.text.text;
 		}
 	});
 
@@ -73,6 +81,9 @@ app.action('submit_form', async ({ body, ack, client }) => {
 				text:
 					`Hello ${name}, ${sender.name} (@${sender.username}) has just used *The Beacon* :rotating_light: to alert you of their troubles.` +
 					`\n\n` +
+					// `${JSON.stringify(values, null, 2)}\n\n` + // for debugging
+					(feeling ? `Feeling: ${feeling}\n\n` : '') +
+					(duration ? `Duration: ${duration}\n\n` : '') +
 					(text ? `They added the below message:\n\n>>> ${text}` : ''),
 				mrkdwn: true,
 				channel: id,
@@ -90,6 +101,8 @@ app.action('submit_form', async ({ body, ack, client }) => {
 					`- Their Squad Leader\n` +
 					`- Their project/client\n\n` +
 					`_(Also please don't reach out to them right now. Give them space for now and maybe check in tomorrow.)_\n\n` +
+					(feeling ? `Feeling: ${feeling}\n\n` : '') +
+					(duration ? `Duration: ${duration}\n\n` : '') +
 					(text ? `They added the below message:\n\n>>> ${text}` : ''),
 				mrkdwn: true,
 				channel: user,
