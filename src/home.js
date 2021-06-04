@@ -16,7 +16,7 @@ module.exports = [
 			text:
 				`*Beacon* is an app that helps you flag that you're unwell when you can't hold a conversation or just don't have the energy.\n` +
 				`It's a one-way communication tool that makes it easier for you to tell work you're out of action without having to worry about someone asking you questions by sending an automated message to people you select.\n\n\n` +
-				`_Note: Beacon is the very *last resort* for you to let people know you're sick. If you can let them know directly: *Please do!*_\n\n\n` +
+				`Note: Beacon is an alternative for you to let others know you're not able to work. If you _can_ let them know directly: *Please do!*\n\n\n` +
 				`*What will happen when you click the _Send this out!_ button?*\n` +
 				`*Beacon* will send a message to all the people you have tagged so they can be there for you and help you communicate.\n` +
 				`_(Tip: select yourself in the list to see what is being sent out as a message)_\n` +
@@ -46,7 +46,7 @@ module.exports = [
 		type: 'section',
 		text: {
 			type: 'mrkdwn',
-			text: '_(Tag everyone who can help you communicate your absence like your Squad Leader)_',
+			text: '_(Tag everyone who can help you communicate your absence, like your Squad Leader)_',
 		},
 	},
 	{
@@ -66,7 +66,7 @@ module.exports = [
 		type: 'section',
 		text: {
 			type: 'mrkdwn',
-			text: '_(Maybe include when you aim to be back or what the context is etc)_',
+			text: `_(Maybe include the context of what's going on and/or what you like to be communicated etc)_`,
 		},
 	},
 	{
