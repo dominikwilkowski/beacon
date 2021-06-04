@@ -94,13 +94,15 @@ app.action('submit_form', async ({ body, ack, client }) => {
 	await Promise.all(
 		users.map(async (user) => {
 			let resolvedUser = user;
-			if (user.email === 'charles@thinkmill.com.au') {
-				try {
-					const result = await client.users.list();
-					user = result?.members.find(member => member.email === 'dominik@thinkmill.com.au');
-				} catch (e) {
-					console.error('We couldn\'t find Dom');
+			try {
+				const usersList = await client.users.list();
+				const fullUser = usersList.members.find(member => member.id === user); 
+				const dominik = usersList.members.find(member => member.email === 'dominik@thinkmill.com.au');
+				if (fullUser.email === 'charles@thinkmill.com.au') {
+					resolvedUser = dominik;
 				}
+			} catch (e) {
+				console.error('We couldn\'t find Dom');
 			}
 			return client.chat.postMessage({
 				text:
