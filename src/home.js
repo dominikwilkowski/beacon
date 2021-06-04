@@ -21,7 +21,7 @@ module.exports = [
 				`*Beacon* will send a message to all the people you have tagged so they can be there for you and help you communicate.\n` +
 				`_(Tip: select yourself in the list to see what is being sent out as a message)_\n` +
 				`If you can, provide optional information below to give context about your well-being.\n\n\n` +
-				`Tip: The mental health hotline is anonymous and free at: 02 8205 0566\n\n` +
+				`_Tip: Our mental health hotline is anonymous and free at: 02 8205 0566_\n\n` +
 				`We hope you feel better soon :chd:`,
 		},
 	},
