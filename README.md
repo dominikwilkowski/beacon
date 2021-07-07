@@ -46,4 +46,6 @@ After changes please run `yarn format` to run `prettier`.
 
 ## Version History
 
+- v1.2.0 - Added more information to the default message
+- v1.1.0 - Added more details to the home screen
 - v1.0.0 - First release
