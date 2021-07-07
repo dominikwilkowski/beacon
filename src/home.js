@@ -73,7 +73,7 @@ module.exports = [
 		type: 'section',
 		text: {
 			type: 'mrkdwn',
-			text: 'How do you feel: _(Optional)_',
+			text: 'How do you feel: _(optional)_',
 		},
 		accessory: {
 			type: 'radio_buttons',
@@ -118,7 +118,7 @@ module.exports = [
 		type: 'section',
 		text: {
 			type: 'mrkdwn',
-			text: 'Ballpark duration: _(Optional)_',
+			text: 'Ballpark duration: _(optional)_',
 		},
 		accessory: {
 			type: 'radio_buttons',

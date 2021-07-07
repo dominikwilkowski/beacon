@@ -1,6 +1,6 @@
 {
 	"name": "beacon",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "A Slack bot that creates a one-way communication channel to people for when you're too sick to deal with human interaction but still need to let people know you're not well.",
 	"scripts": {
 		"start": "node src/index.js",

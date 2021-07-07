@@ -75,13 +75,24 @@ app.action('submit_form', async ({ body, ack, client }) => {
 		} received for ${users}`
 	);
 
+	const detailedUsers = await Promise.all(
+		users.map((id) => client.users.info({ user: id }))
+	);
+
+	const detailedSender = await client.users.info({ user: sender.id });
+
 	await Promise.all(
 		DEFAULT_USER.map(({ name, id }) =>
 			client.chat.postMessage({
 				text:
-					`Hello ${name}, ${sender.name} (@${sender.username}) has just used *The Beacon* :rotating_light: to alert you of their troubles.` +
+					`Hello ${name}, ${detailedSender.user.real_name} has just used *The Beacon* :rotating_light: to alert you of their troubles.` +
 					`\n\n` +
-					// `${JSON.stringify(values, null, 2)}\n\n` + // for debugging
+					// `${JSON.stringify(detailedSender, null, 2)}\n\n` + // for debugging
+					(detailedUsers
+						? `Alerted was: ${detailedUsers
+								.map(({ user }) => user.real_name)
+								.join(', ')}\n\n`
+						: ``) +
 					(feeling ? `Feeling: ${feeling}\n\n` : '') +
 					(duration ? `Duration: ${duration}\n\n` : '') +
 					(text ? `They added the below message:\n\n>>> ${text}` : ''),
@@ -92,10 +103,14 @@ app.action('submit_form', async ({ body, ack, client }) => {
 	);
 
 	await Promise.all(
-		users.map((user) =>
+		detailedUsers.map(({ user }) =>
 			client.chat.postMessage({
 				text:
-					`${sender.name} (@${sender.username}) has just used *The Beacon* :rotating_light: to alert you of their troubles.\n\n` +
+					`Hello ${
+						user.profile.first_name ? user.profile.first_name : user.real_name
+					}, ${
+						detailedSender.user.real_name
+					} has just used *The Beacon* :rotating_light: to alert you of their troubles.\n\n` +
 					`Please follow up with:\n` +
 					`- Their line manager\n` +
 					`- Their Squad Leader\n` +
@@ -105,7 +120,7 @@ app.action('submit_form', async ({ body, ack, client }) => {
 					(duration ? `Duration: ${duration}\n\n` : '') +
 					(text ? `They added the below message:\n\n>>> ${text}` : ''),
 				mrkdwn: true,
-				channel: user,
+				channel: user.id,
 			})
 		)
 	);
