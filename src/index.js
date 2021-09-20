@@ -8,6 +8,7 @@ const home = require('./home');
 require('dotenv').config({ path: path.normalize(`${__dirname}/../.env`) });
 const TOKEN = process.env.TOKEN;
 const SLACK_SIGNING_SECRET = process.env.SLACK_SIGNING_SECRET;
+const SLACK_APP_TOKEN = process.env.SLACK_APP_TOKEN;
 const DEFAULT_USER = JSON.parse(process.env.DEFAULT_USER || '{}');
 const PORT = process.env.PORT || 3000;
 
@@ -20,7 +21,32 @@ if (!TOKEN || !SLACK_SIGNING_SECRET) {
 
 const app = new App({
 	token: TOKEN,
-	signingSecret: SLACK_SIGNING_SECRET,
+	// signingSecret: SLACK_SIGNING_SECRET,
+	appToken: SLACK_APP_TOKEN,
+	socketMode: true,
+});
+
+// Letting people know the bot works via the home screen only
+app.event('app_mention', async ({ event, say }) => {
+	try {
+		await say({
+			blocks: [
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text:
+							`Thanks for mentioning me <@${event.user}>.\n` +
+							'If you would like to *use me*, make sure you go to my home screen and fill out the form.\n' +
+							'To get to my home screen click on me and click the button `Go to App`.\n' +
+							'Have a good day',
+					},
+				},
+			],
+		});
+	} catch (error) {
+		console.error(error);
+	}
 });
 
 home[0].text.text += ` v${pkg.version}`;
@@ -69,14 +95,17 @@ app.action('submit_form', async ({ body, ack, client }) => {
 	});
 
 	await ack();
-	console.log(
-		`[${new Date().toISOString()}] alert from ${
-			sender.name
-		} received for ${users}`
-	);
 
 	const detailedUsers = await Promise.all(
 		users.map((id) => client.users.info({ user: id }))
+	);
+
+	console.log(
+		`[${new Date().toISOString()}] alert from ${
+			sender.name
+		} received for ${detailedUsers
+			.map(({ user }) => user.profile.first_name)
+			.join(', ')}`
 	);
 
 	const detailedSender = await client.users.info({ user: sender.id });
@@ -147,7 +176,7 @@ app.action('submit_form', async ({ body, ack, client }) => {
 
 // Starts server
 (async () => {
-	await app.start(PORT || 3000);
+	await app.start(PORT);
 
 	cfonts.say('Beacon', {
 		font: 'simple',

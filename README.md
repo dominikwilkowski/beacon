@@ -23,10 +23,19 @@ It will need bot token scope:
 - `im:read`
 - `im:write`
 - `users:read`
+- `app_mentions:read`
 
-And you'll need to copy the `User OAuth Token` and the `Bot User OAuth Token` into your `.env` file which you can get from the `OAuth & Permissions` page of your app.
+And you'll need to copy the `User OAuth Token` and the `Bot User OAuth Token` into your `.env` file which you can get from the `OAuth & Permissions` page of your app. And create a `App-Level Tokens` under `Basic Information` with both `connections:write` and `authorizations:read`.
 
-Lastly you have to add the url to Slack in both the `Event Subscriptions` and `Interactivity & Shortcuts` sections. Note that the app is listening on the path `slack/events`.
+Make sure you enable `Socket Mode`.
+
+Lastly you have to add the url to Slack in both the `Event Subscriptions` and `Interactivity & Shortcuts` sections.
+Note that the app is listening on the path `slack/events`.
+Inside `Event Subscriptions` make sure you add the following events under `Subscribe to bot events`:
+
+- `app_home_opened`
+- `app_mention`
+- `message.im`
 
 ## Customization
 
