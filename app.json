@@ -1,0 +1,24 @@
+{
+	"name": "The Beacon",
+	"description": "A Slack bot that creates a one-way communication channel to people for when you're too sick to deal with human interaction but still need to let people know you're not well.",
+	"repository": "https://github.com/dominikwilkowski/beacon",
+	"env": {
+		"TOKEN": {
+			"description": "The Slack token for this app",
+			"required": true
+		},
+		"SLACK_SIGNING_SECRET": {
+			"description": "Slack signing secret for this app",
+			"required": true
+		},
+		"SLACK_APP_TOKEN": {
+			"description": "Slack app token for this app",
+			"required": true
+		},
+		"DEFAULT_USER": {
+			"description": "The default user/channels that are to be notified upon usage. JSON string",
+			"required": true
+		}
+	},
+	"image": "heroku/nodejs"
+}

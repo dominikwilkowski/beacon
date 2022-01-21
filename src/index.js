@@ -21,9 +21,18 @@ if (!TOKEN || !SLACK_SIGNING_SECRET) {
 
 const app = new App({
 	token: TOKEN,
-	// signingSecret: SLACK_SIGNING_SECRET,
+	signingSecret: SLACK_SIGNING_SECRET,
 	appToken: SLACK_APP_TOKEN,
-	socketMode: true,
+	customRoutes: [
+		{
+			path: '/health',
+			method: ['GET'],
+			handler: (_, res) => {
+				res.writeHead(200);
+				res.end('App is running');
+			},
+		},
+	],
 });
 
 // Letting people know the bot works via the home screen only

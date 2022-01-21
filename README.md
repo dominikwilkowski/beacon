@@ -27,7 +27,7 @@ It will need bot token scope:
 
 And you'll need to copy the `User OAuth Token` and the `Bot User OAuth Token` into your `.env` file which you can get from the `OAuth & Permissions` page of your app. And create a `App-Level Tokens` under `Basic Information` with both `connections:write` and `authorizations:read`.
 
-Make sure you enable `Socket Mode`.
+You can also [![deploy via Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy).
 
 Lastly you have to add the url to Slack in both the `Event Subscriptions` and `Interactivity & Shortcuts` sections.
 Note that the app is listening on the path `slack/events`.
@@ -55,6 +55,8 @@ After changes please run `yarn format` to run `prettier`.
 
 ## Version History
 
+- v1.2.0 - Added health route, Updated dependencies, added Heroku button
+- v1.3.0 - Added slack command feedback
 - v1.2.0 - Added more information to the default message
 - v1.1.0 - Added more details to the home screen
 - v1.0.0 - First release
