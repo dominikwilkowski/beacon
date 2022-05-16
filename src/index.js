@@ -132,8 +132,7 @@ app.action('submit_form', async ({ body, ack, client }) => {
 								.join(', ')}\n\n`
 						: ``) +
 					(feeling ? `Feeling: ${feeling}\n\n` : '') +
-					(duration ? `Duration: ${duration}\n\n` : '') +
-					(text ? `They added the below message:\n\n>>> ${text}` : ''),
+					(duration ? `Duration: ${duration}\n\n` : '')
 				mrkdwn: true,
 				channel: id,
 			})
